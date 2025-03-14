@@ -1,5 +1,6 @@
 import { readFileSync } from "fs";
 import { resolve } from "path";
+import logger from "../util/logger.js";
 
 /**
  * .env 파일을 읽고 환경 변수로 설정하는 함수.
@@ -24,7 +25,7 @@ function loadEnv(envFilePath = process.env.ENV_FILE || ".env") {
       process.env[key.trim()] = value;
     });
   } catch (error) {
-    console.warn(`Warning: Failed to load environment file: ${envFilePath}`);
+    logger.warn(`Warning: Failed to load environment file: ${envFilePath}`);
   }
 }
 

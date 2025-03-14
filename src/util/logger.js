@@ -8,7 +8,7 @@ const programStartTime = new Date();
 const programTimestamp = programStartTime
   .toISOString()
   .slice(0, 19)
-  .replace(/[-T:]/g, "");
+  .replace(/[-T:]/g, "_");
 
 class Logger {
   constructor({ level = "info", logDir = "logs" } = {}) {
