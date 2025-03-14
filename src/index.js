@@ -1,2 +1,4 @@
 import logger from "./util/logger.js";
-logger.log("hi");
+import env from "./configs/env.js";
+
+logger.info(env);
