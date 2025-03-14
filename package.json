@@ -1,0 +1,13 @@
+{
+    "name": "clicker-server",
+    "version": "1.0.0",
+    "description": "Node.js v22.8.0 프로젝트 (패키지 매니저 없이 개발)",
+    "type": "module",
+    "engines": {
+      "node": ">=22.8.0"
+    },
+    "main": "src/index.js",
+    "author": "LJS",
+    "license": "MIT"
+  }
+  
