@@ -36,7 +36,8 @@ loadEnv();
  * 필수 환경 변수 목록을 정의하는 객체.
  */
 const requiredEnv = {
-  SERVER: ["PORT", "BIND"],
+  HTTP: ["PORT"],
+  TCP: ["PORT", "BIND"],
 };
 
 /**

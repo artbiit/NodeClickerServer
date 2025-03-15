@@ -19,8 +19,6 @@ if (cluster.isPrimary) {
   });
 } else {
   await initialize();
-  const result = await SQLiteManager.getInstance().get(
-    `SELECT  ${cluster.worker.id} + ${cluster.worker.id};`
-  );
-  logger.info(result);
+
+  await import("./http/httpServer.js");
 }
