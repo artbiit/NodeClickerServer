@@ -1,4 +1,4 @@
 import logger from "./util/logger.js";
-import env from "./configs/env.js";
+import initialize from "./init/init.js";
 
-logger.info(env);
+await initialize();
