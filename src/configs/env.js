@@ -38,6 +38,7 @@ loadEnv();
 const requiredEnv = {
   HTTP: ["PORT"],
   TCP: ["PORT", "BIND"],
+  CLUSTER: ["NUMBER"],
 };
 
 /**
