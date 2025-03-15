@@ -23,7 +23,7 @@ const IsUserLoggedIn = async (userName) => {
 
   // 세션이 만료된 경우 삭제 후 로그인 가능하도록 처리
   if (new Date(activeSession.expires_at) <= new Date()) {
-    await db.run("DELETE FROM session WHERE session_id = ?;", [
+    await db.execute("DELETE FROM session WHERE session_id = ?;", [
       activeSession.session_id,
     ]);
     return false;
@@ -55,7 +55,7 @@ const CreateSession = async (userName, sessionId, expiresInSeconds) => {
   ).toISOString();
 
   // 새로운 세션 등록
-  await db.run(
+  await db.execute(
     "INSERT INTO session (session_id, user_seq_no, expires_at) VALUES (?, ?, ?);",
     [sessionId, user.seq_no, expiresAt]
   );
@@ -77,7 +77,7 @@ const CheckSession = async (sessionId) => {
 
   // 세션이 만료된 경우 삭제 후 false 반환
   if (new Date(session.expires_at) <= new Date()) {
-    await db.run("DELETE FROM session WHERE session_id = ?;", [
+    await db.execute("DELETE FROM session WHERE session_id = ?;", [
       session.session_id,
     ]);
     return false;
@@ -92,7 +92,7 @@ const CheckSession = async (sessionId) => {
  */
 const DeleteSession = async (sessionId) => {
   const db = SQLiteManager.getInstance();
-  await db.run("DELETE FROM session WHERE session_id = ?;", [sessionId]);
+  await db.execute("DELETE FROM session WHERE session_id = ?;", [sessionId]);
 };
 
 export { CreateSession, CheckSession, DeleteSession, IsUserLoggedIn };

@@ -6,7 +6,7 @@ export default async (data) => {
   const { userName, password } = data;
   let statusCode = 200;
   let message = undefined;
-  let sessionId = null;
+  let sessionId = undefined;
 
   if (!userName || userName == "") {
     statusCode = 400;
@@ -28,7 +28,7 @@ export default async (data) => {
       message = "비밀번호가 일치하지 않습니다.";
     } else {
       sessionId = randomUUID();
-      await CreateSession(userName, sessionId, 3600); // 세션 1시간 유지
+      await CreateSession(userName, sessionId, 300); // 세션 5분간 유지
       message = "로그인 성공!";
     }
   }
