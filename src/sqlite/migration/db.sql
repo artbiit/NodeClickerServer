@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS session (
 CREATE TABLE IF NOT EXISTS ban (
     user_seq_no INTEGER NOT NULL PRIMARY KEY,  -- user 테이블의 seq_no 참조 (기본키)
     user_name TEXT NOT NULL,                    -- user 테이블의 user_name 참조
+    reason TEXT NOT NULL,                       -- 해당 유저가 밴 당한 이유
     banned_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- 실격 시기
     FOREIGN KEY (user_seq_no) REFERENCES user(seq_no) ON DELETE CASCADE
 );
