@@ -55,9 +55,10 @@ class e2eTester {
 
     this.#log("tcp 연결 시도");
 
-    return new Promise((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       this.#socket.connect(env.TCP_PORT, "127.0.0.1", async () => {
         this.#log("tcp 연결 성공. 인증 시도");
+        this.#socket.setKeepAlive(true, 10000);
         this.#socket.write(JSON.stringify({ sessionId }));
       });
 
@@ -78,12 +79,15 @@ class e2eTester {
           this.authorized = true;
         }
 
-        this.intervalKey = setInterval(async () => {
+        const intervalKey = setInterval(async () => {
           if (this.#socket && !this.#socket.destroyed) {
-            await this.#socket.write("\n");
+            this.#log("클릭 이벤트 전송");
+            await this.#socket.write("{}");
           } else {
-            clearInterval(this.intervalKey);
+            clearInterval(intervalKey);
             this.#log("클릭 인터벌 제거됨");
+            resolve();
+            return;
           }
         }, this.clickInterval);
       });
@@ -98,10 +102,18 @@ class e2eTester {
         reject(err);
       });
     });
+
+    if (sessionId) {
+      await this.sendHttpRequest("signout", { sessionId });
+    }
+
+    if (this.#socket && !this.#socket.destroyed) {
+      this.#socket.destroy();
+    }
   };
 
   #log = (msg) => {
-    logger.debug(`e2eTester ${this.userName} : ${msg}`);
+    logger.info(`e2eTester ${this.userName} : ${msg}`);
   };
 
   async sendHttpRequest(api, data) {

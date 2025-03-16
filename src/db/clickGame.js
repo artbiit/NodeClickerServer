@@ -103,10 +103,9 @@ export async function getUserAttempts(userSeqNo) {
  */
 export async function isBanned(userSeqNo) {
   const db = SQLiteManager.getInstance();
-  const result = await db.get(
-    `SELECT 1 FROM ban WHERE user_seq_no = ? LIMIT 1`,
-    [userSeqNo]
-  );
+  const result = await db.get(`SELECT * FROM ban WHERE user_seq_no = ?`, [
+    userSeqNo,
+  ]);
   return !!result;
 }
 

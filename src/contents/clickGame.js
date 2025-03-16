@@ -63,15 +63,12 @@ class ClickGame {
     return { status: "valid", clicks: user.totalClicks };
   }
 
-  // 슬라이딩 윈도우 체크 (1초 내 4회 초과 시 실격)
+  // 슬라이딩 윈도우 체크 (연속된 1초 내 4회 초과 시 실격)
   checkDisqualification(clicks) {
-    while (
-      clicks.length > 0 &&
-      clicks[clicks.length - 1] - clicks[0] > 1000000
-    ) {
-      clicks.shift();
+    while (clicks.length > 0 && clicks[clicks.length - 1] - clicks[0] > 1000) {
+      clicks.shift(); // 1초 범위를 벗어난 클릭 제거
     }
-    return clicks.length > 4;
+    return clicks.length > 4; // 1초 내 클릭 수가 4개 초과하면 실격
   }
 
   // 자동 실격 타이머 (10초 동안 클릭 없으면 실격)

@@ -5,8 +5,7 @@ const authorizeHandler = async (socket, payload) => {
   const { sessionId } = payload;
   const result = { success: true };
 
-  const sessionInfo = GetSession(sessionId);
-
+  const sessionInfo = await GetSession(sessionId);
   if (!sessionInfo || new Date(sessionInfo.expires_at) <= new Date()) {
     result.success = false;
     result.message = "유효하지 않은 세션입니다.";
@@ -20,7 +19,9 @@ const authorizeHandler = async (socket, payload) => {
   }
 
   await socket.write(JSON.stringify(result));
-  await socket.destroy();
+  if (!result.success) {
+    await socket.destroy();
+  }
 };
 
 export default authorizeHandler;

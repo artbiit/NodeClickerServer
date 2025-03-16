@@ -102,7 +102,7 @@ const DeleteSession = async (sessionId) => {
  */
 const GetSession = async (sessionId) => {
   const db = SQLiteManager.getInstance();
-  const result = await db.get("SELECT FROM * WHERE session_id = ?;", [
+  const result = await db.get("SELECT * FROM session WHERE session_id = ?;", [
     sessionId,
   ]);
   return result ?? null;
