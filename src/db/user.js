@@ -31,4 +31,17 @@ const GetUserPassword = async (userName) => {
   return result ? result.password : null;
 };
 
-export { InsertUser, CheckUserExists, GetUserPassword };
+/**
+ * 해당 유저 명칭의 모든 정보 가져오기
+ * @param {string} userName
+ * @return {Promise<Object | null>} 유저 db 정보
+ */
+const GetUser = async (userName) => {
+  const db = SQLiteManager.getInstance();
+  const result = await db.get("SELECT * FROM user WHERE user_name = ?;", [
+    userName,
+  ]);
+  return result ?? null;
+};
+
+export { InsertUser, CheckUserExists, GetUserPassword, GetUser };

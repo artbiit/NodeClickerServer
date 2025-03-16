@@ -59,13 +59,13 @@ export async function createAttempt(userSeqNo) {
  * @param {string} userName - 유저 이름
  * @param {string} reason - 실격 사유
  */
-export async function banUser(userSeqNo, userName, reason) {
+export async function banUser(userSeqNo, reason) {
   const db = SQLiteManager.getInstance();
 
   await db.execute(
-    `INSERT OR REPLACE INTO ban (user_seq_no, user_name, reason, banned_at) 
-     VALUES (?, ?, ?, CURRENT_TIMESTAMP)`,
-    [userSeqNo, userName, reason]
+    `INSERT OR REPLACE INTO ban (user_seq_no, reason, banned_at) 
+     VALUES (?,  ?, CURRENT_TIMESTAMP)`,
+    [userSeqNo, reason]
   );
   logger.info(`[실격 처리] user_seq_no=${userSeqNo}, reason=${reason}`);
 }

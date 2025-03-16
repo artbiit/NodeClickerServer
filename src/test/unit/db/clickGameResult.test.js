@@ -6,7 +6,7 @@ import {
   isBanned,
   deleteAttemptsByUser,
   createAttempt,
-} from "../../../db/clickGameResult.js";
+} from "../../../db/clickGame.js";
 
 //게임 시작
 await createAttempt(1);

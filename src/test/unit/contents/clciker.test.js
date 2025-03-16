@@ -1,6 +1,6 @@
 import ClickGame from "../../../contents/clickGame.js";
 
-const game = new ClickGame();
+const game = ClickGame;
 
 // 특정 유저의 결과가 나왔을 때 콜백 실행 (DB 저장 가능)
 game.onResult("user1", (userKey, status, message, totalClicks) => {

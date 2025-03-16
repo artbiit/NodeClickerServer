@@ -32,3 +32,4 @@ import env from "./configs/env.js";
 await initialize();
 
 await import("./http/httpServer.js");
+await import("./tcp/tcpServer.js");

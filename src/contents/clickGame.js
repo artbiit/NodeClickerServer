@@ -128,6 +128,28 @@ class ClickGame {
       })),
     };
   }
+
+  // 특정 유저를 강제 제외
+  removeUser(userKey) {
+    if (!this.users.has(userKey)) {
+      return { status: "not_found", message: "유저가 존재하지 않음" };
+    }
+
+    const user = this.users.get(userKey);
+    clearTimeout(user.timeout); // 자동 실격 타이머 제거
+    clearTimeout(user.gameTimeout); // 1분 타이머 제거
+
+    this.notifyResult(
+      userKey,
+      "removed",
+      "관리자에 의해 게임 제외됨",
+      user.totalClicks
+    );
+
+    return { status: "removed", message: "유저가 게임에서 제외됨" };
+  }
 }
 
-export default ClickGame;
+const clickGame = new ClickGame();
+
+export default clickGame;

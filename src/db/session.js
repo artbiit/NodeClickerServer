@@ -95,4 +95,22 @@ const DeleteSession = async (sessionId) => {
   await db.execute("DELETE FROM session WHERE session_id = ?;", [sessionId]);
 };
 
-export { CreateSession, CheckSession, DeleteSession, IsUserLoggedIn };
+/**
+ * 해당 세션 정보 가져오기
+ * @param {string} sessionId
+ * @returns {Promise<Object | null>}
+ */
+const GetSession = async (sessionId) => {
+  const db = SQLiteManager.getInstance();
+  const result = await db.get("SELECT FROM * WHERE session_id = ?;", [
+    sessionId,
+  ]);
+  return result ?? null;
+};
+export {
+  CreateSession,
+  CheckSession,
+  DeleteSession,
+  IsUserLoggedIn,
+  GetSession,
+};
